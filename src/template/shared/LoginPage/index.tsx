@@ -6,6 +6,7 @@ import { toast } from "@/components/ui/use-toast";
 import { InputForm } from "@/components/CustomComponents/InpitForm";
 import { FormContent } from "@/components/CustomComponents/FormContent";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Navbar from "@/components/CustomComponents/Navbar";
 
 const LoginPage = () => {
   const defaultValues = {
@@ -51,6 +52,7 @@ const LoginPage = () => {
             name="password"
             label="Password"
             placeholder="Enter your password"
+            type="password"
           />
         </FormContent>
       </Card>

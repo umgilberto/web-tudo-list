@@ -7,13 +7,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  EyeClosedIcon,
+  EyeOpenIcon,
+} from "@radix-ui/react-icons";
+import { useState } from "react";
 import { Control, FieldValue } from "react-hook-form";
+import { Tooltip } from "../Tooltip";
 
-interface Props {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label: string;
   control: Control<FieldValue<any>>;
-  placeholder?: string;
   description?: string;
 }
 
@@ -22,8 +27,16 @@ export const InputForm = ({
   label,
   name,
   description,
-  placeholder,
+  type,
+  ...rest
 }: Props) => {
+  const [visible, setVisible] = useState(false);
+
+  const handleVisible = () => {
+    setVisible(!visible);
+  };
+
+  const isPassword = type === "password";
   return (
     <FormField
       control={control}
@@ -31,9 +44,27 @@ export const InputForm = ({
       render={({ field }) => (
         <FormItem>
           <FormLabel>{label}</FormLabel>
-          <FormControl>
-            <Input placeholder={placeholder} {...field} />
-          </FormControl>
+          <div className=''>
+            {isPassword ? (
+              visible ? (
+                <Tooltip title="Senha visivel">
+                  <EyeOpenIcon onClick={handleVisible} />
+                </Tooltip>
+              ) : (
+                <Tooltip title="Visualizar senha">
+                  <EyeClosedIcon onClick={handleVisible} />
+                </Tooltip>
+              )
+            ) : null}
+            <FormControl>
+              <Input
+                {...rest}
+                {...field}
+                type={isPassword ? (visible ? "text" : "password") : "text"}
+                className='form-input w-full'
+              />
+            </FormControl>
+          </div>
           <FormDescription>{description}</FormDescription>
           <FormMessage />
         </FormItem>
