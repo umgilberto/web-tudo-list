@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { generateRoute } from "../utils/generateRoute";
 import { routeList } from "./routeList";
 import { NotFoundPage } from "../template/shared/NotFoundPage";
-import LoginPage from "../template/LoginPage";
+import LoginPage from "@/template/shared/LoginPage";
 
 const RouteToRender = () => {
   return (
